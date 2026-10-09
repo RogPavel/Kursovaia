@@ -1,0 +1,18 @@
+{
+  "name": "pet_care_project",
+  "version": "1.0.0",
+  "description": "Pet care system",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.6.1",
+    "pg": "^8.20.0"
+  }
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawCare - Авторизация</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container auth-container">
+    <h1>Добро пожаловать в PawCare</h1>
+
+    <div class="form-section" id="loginSection">
+        <h3>Вход в систему</h3>
+        <form id="loginForm" class="auth-form">
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Пароль" required>
+            <button type="submit" class="btn">Войти</button>
+        </form>
+        <p class="auth-switch">Нет аккаунта? <a href="#" onclick="toggleAuth(true)">Зарегистрироваться</a></p>
+    </div>
+
+    <div class="form-section" id="registerSection" style="display: none;">
+        <h3>Регистрация пользователя</h3>
+        <form id="registerForm" class="auth-form">
+            <input type="text" id="regName" placeholder="Имя" required>
+            <input type="email" id="regEmail" placeholder="Email (содержит admin для роли Админа)" required>
+            <input type="password" id="regPassword" placeholder="Пароль" required>
+            <button type="submit" class="btn">Создать аккаунт</button>
+        </form>
+        <p class="auth-switch">Уже есть аккаунт? <a href="#" onclick="toggleAuth(false)">Войти</a></p>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'http://localhost:3000/api';
+
+    // Переключение между формами логина и регистрации
+    function toggleAuth(showRegister) {
+        document.getElementById('loginSection').style.display = showRegister ? 'none' : 'block';
+        document.getElementById('registerSection').style.display = showRegister ? 'block' : 'none';
+    }
+
+    // Обработчик Регистрации
+    document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const user = {
+            name: document.getElementById('regName').value,
+            email: document.getElementById('regEmail').value,
+            password: document.getElementById('regPassword').value
+        };
+
+        try {
+            // ИСПРАВЛЕНО: Маршрут изменен на /api/auth/register для соответствия server.js
+            const res = await fetch(`${API_URL}/auth/register`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(user)
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                alert(`Аккаунт успешно создан! Роль: ${data.role}. Теперь вы можете войти.`);
+                toggleAuth(false);
+            } else {
+                alert('Ошибка: ' + data.error);
+            }
+        } catch (err) {
+            alert('Ошибка сети при регистрации.');
+        }
+    });
+
+    // Обработчик Входа
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const user = {
+            email: document.getElementById('loginEmail').value,
+            password: document.getElementById('loginPassword').value
+        };
+
+        try {
+            // ИСПРАВЛЕНО: Маршрут изменен на /api/auth/login для соответствия server.js
+            const res = await fetch(`${API_URL}/auth/login`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(user)
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                // Сохраняем данные авторизации
+                localStorage.setItem('userRole', data.user.role);
+                localStorage.setItem('userName', data.user.name);
+
+                // Перенаправляем на главную
+                window.location.href = 'index.html';
+            } else {
+                alert('Ошибка сервера: ' + data.error);
+            }
+        } catch (err) {
+            alert('Ошибка сети. Проверь, запущен ли Node.js сервер!');
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawCare - Контакты</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-container">
+        <div class="logo"><span>PawCare</span></div>
+        <div class="user-status" id="userStatusBadge">Загрузка...</div>
+    </div>
+</header>
+
+<nav class="site-nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="index.html#services-section" class="nav-link">Услуги</a>
+        <a href="index.html#sitters-section" class="nav-link">Сиделки</a>
+        <a href="index.html#pets-section" class="nav-link">Картотека</a>
+        <a href="index.html#booking-section" class="nav-link">Онлайн-запись</a>
+        <a href="about.html" class="nav-link">О нас</a>
+        <a href="contacts.html" class="nav-link active">Контакты</a>
+        <a href="auth.html" class="nav-link logout" onclick="localStorage.clear()">Выйти</a>
+    </div>
+</nav>
+
+<main class="main-content">
+    <section class="primary-section">
+        <article class="content-article humanized-card">
+            <h2>Связаться с нами</h2>
+            <p class="section-desc">Мы всегда на связи, чтобы ответить на любые вопросы или принять экстренную заявку.</p>
+
+            <div class="contacts-layout">
+                <div class="contact-info-block">
+                    <div class="info-line">📍 <strong>Адрес:</strong> г. Кишинев, ул. Студенческая, 9/7</div>
+                    <div class="info-line">📞 <strong>Телефон:</strong> +373 68 XX-XX-XX</div>
+                    <div class="info-line">✉️ <strong>Email:</strong> support@pawcare.md</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="content-article humanized-card">
+            <h2>✉️ Напишите нам записку</h2>
+            <p class="section-desc">Есть предложение, пожелание или отзыв? Напишите напрямую руководству клиники.</p>
+            <form id="feedbackForm" class="booking-form" onsubmit="sendFeedback(event)">
+                <div class="form-group">
+                    <label>Ваше имя:</label>
+                    <input type="text" id="fbName" required placeholder="Алексей">
+                </div>
+                <div class="form-group">
+                    <label>Текст сообщения:</label>
+                    <textarea id="fbMessage" required placeholder="Ваши мысли или предложения..." style="min-height: 120px; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" class="btn">Отправить сообщение</button>
+            </form>
+        </article>
+    </section>
+
+    <aside class="sidebar-section">
+        <div class="aside-card status-card">
+            <h4>Режим работы</h4>
+            <p style="font-size: 0.9rem; line-height: 1.6; color: #555;">
+                <strong>Ветеринарный block:</strong><br> Круглосуточно (24/7)<br><br>
+                <strong>Прием петситтеров:</strong><br> Пн - Сб, с 09:00 до 19:00<br><br>
+                <strong>Администрация:</strong><br> Пн - Пт, с 09:00 до 18:00
+            </p>
+        </div>
+    </aside>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <p>&copy; 2026 PawCare Единая Система Учета.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const name = localStorage.getItem('userName') || 'Гость';
+        const role = localStorage.getItem('userRole') || 'user';
+        const statusBadge = document.getElementById('userStatusBadge');
+
+        if (statusBadge) {
+            if (role === 'admin') {
+                statusBadge.innerText = `Администратор: ${name}`;
+                statusBadge.style.background = '#e74c3c';
+                statusBadge.style.color = '#fff';
+            } else {
+                statusBadge.innerText = `Пользователь: ${name}`;
+                statusBadge.style.background = '#2ecc71';
+                statusBadge.style.color = '#fff';
+            }
+        }
+    });
+
+    function sendFeedback(e) {
+        e.preventDefault();
+        alert('✨ Спасибо! Ваше сообщение успешно отправлено администрации клиники.');
+        document.getElementById('feedbackForm').reset();
+    }
+</script>
+</body>
+</html>

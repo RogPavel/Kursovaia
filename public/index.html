@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawCare - Личный кабинет</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-container">
+        <div class="logo"><span>PawCare</span></div>
+        <div class="user-status" id="userStatusBadge">Загрузка...</div>
+    </div>
+</header>
+
+<nav class="site-nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-link active">Главная</a>
+        <a href="#services-section" class="nav-link">Услуги</a>
+        <a href="#sitters-section" class="nav-link">Сиделки</a>
+        <a href="#pets-section" class="nav-link">Картотека</a>
+        <a href="#booking-section" class="nav-link">Онлайн-запись</a>
+        <a href="about.html" class="nav-link">О нас</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+        <a href="auth.html" class="nav-link logout" onclick="localStorage.clear()">Выйти</a>
+    </div>
+</nav>
+
+<main class="main-content">
+    <section class="primary-section">
+
+        <article id="services-section" class="content-article">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Наши услуги (PostgreSQL)</h2>
+                <button class="admin-add-btn admin-only-btn" id="addServiceBtn" onclick="addService()" style="display: none;">
+                    <span class="icon"></span> Добавить услугу
+                </button>
+            </div>
+            <p class="section-desc">Актуальные цены и медицинские процедуры нашей клиники.</p>
+            <div id="servicesGrid" class="services-grid"></div>
+        </article>
+
+        <article id="sitters-section" class="content-article">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>Наши сиделки / Петситтеры (MongoDB)</h2>
+                <button class="admin-add-btn admin-only-btn" id="addSitterBtn" onclick="addSitter()" style="display: none;">
+                    <span class="icon"></span> Добавить сиделку
+                </button>
+            </div>
+            <p class="section-desc">Каталог проверенных специалистов по присмотру за животными.</p>
+            <div id="sittersGrid" class="sitters-grid"></div>
+        </article>
+
+        <article id="pets-section" class="content-article">
+            <h2>🗂️ Картотека зарегистрированных питомцев (MongoDB)</h2>
+            <p class="section-desc">Добавьте своего питомца в единую базу данных клиники.</p>
+
+            <div class="pet-manager">
+                <div class="add-pet-form">
+                    <h4>➕ Зарегистрировать питомца</h4>
+                    <div class="form-inline">
+                        <input type="text" id="newPetName" placeholder="Кличка питомца">
+                        <select id="newPetType">
+                            <option value="🐶 Собака">🐶 Собака</option>
+                            <option value="🐱 Кошка">🐱 Кошка</option>
+                            <option value="🐹 Грызун">🐹 Грызун</option>
+                            <option value="🦜 Птица">🦜 Попугай</option>
+                        </select>
+                        <input type="text" id="newPetBreed" placeholder="Порода питомца">
+                        <button class="btn-small" onclick="addPet()">Добавить</button>
+                    </div>
+                </div>
+                <div id="petsGrid" class="pets-grid"></div>
+            </div>
+        </article>
+
+        <article id="booking-section" class="content-article">
+            <h2>Онлайн-запись на прием</h2>
+            <div class="booking-wrapper">
+                <form id="bookingForm" class="booking-form">
+                    <div class="form-group">
+                        <label>Ваше имя:</label>
+                        <input type="text" id="ownerName" required placeholder="Иван Иванов">
+                    </div>
+                    <div class="form-group">
+                        <label>Номер телефона:</label>
+                        <input type="tel" id="ownerPhone" required placeholder="+373 XXXXXXXX">
+                    </div>
+                    <div class="form-group">
+                        <label>Кличка питомца:</label>
+                        <input type="text" id="bookingPetName" required placeholder="Шарик">
+                    </div>
+                    <div class="form-group">
+                        <label>Выберите направление:</label>
+                        <select id="serviceSelect">
+                            <option value="Вакцинация">Вакцинация питомца</option>
+                            <option value="Терапия">Осмотр терапевта / Консультация</option>
+                            <option value="Ветеринар">Направление к ветеринару</option>
+                            <option value="Сиделка">Сиделка (Петситтинг)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Желаемая дата:</label>
+                        <input type="date" id="bookingDate" required>
+                    </div>
+                    <button type="submit" class="btn">Записаться</button>
+                </form>
+            </div>
+        </article>
+
+    </section>
+
+    <aside class="sidebar-section">
+        <div class="aside-card status-card" id="adminStatusCard">
+            <h4>Статус систем</h4>
+            <ul class="status-list">
+                <li><span class="status-dot online"></span> PostgreSQL: Connected</li>
+                <li><span class="status-dot online"></span> MongoDB: Connected</li>
+                <li><span class="status-dot online"></span> Node.js (MVC): Active</li>
+            </ul>
+        </div>
+        <div class="aside-card info-card" id="adminInfoCard">
+            <h4>💡 Памятка администратора</h4>
+            <p>Вы авторизованы с правами полного доступа. Вам разрешено интерактивное управление базами данных SQL и NoSQL.</p>
+        </div>
+        <div class="aside-card info-card">
+            <h4>Режим работы</h4>
+            <p>Прием экстренных пациентов — круглосуточно 24/7.<br>Офис петситтинга работает по согласованию.</p>
+        </div>
+    </aside>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <p>&copy; 2026 PawCare Единая Система Учета.</p>
+        <p class="footer-tech">Стек проекта: Node.js, Express, PostgreSQL, MongoDB Mongoose</p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

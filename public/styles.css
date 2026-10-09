@@ -1,0 +1,508 @@
+/* --- 1. Базовые сбросы и глобальные настройки --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f4f7f6 url('assets/fone.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* --- 2. Страница Авторизации (auth.html) --- */
+.auth-container {
+    max-width: 450px;
+    margin: 100px auto;
+    background: rgba(255, 255, 255, 0.96);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.auth-container h1 {
+    margin-bottom: 25px;
+    color: #2c3e50;
+    font-size: 1.8rem;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+.auth-switch {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.auth-switch a {
+    color: #1abc9c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* --- 3. Шапка, Логотип и Пользовательский Статус --- */
+.site-header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.logo span {
+    color: #1abc9c;
+}
+
+.user-status {
+    background: #34495e;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- 4. Меню навигации --- */
+.site-nav {
+    background: #34495e;
+    padding: 8px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 15px;
+    padding: 0 20px;
+}
+
+.nav-link {
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: white;
+    background: #1abc9c;
+}
+
+.nav-link.logout {
+    margin-left: auto;
+    background: #e74c3c;
+}
+
+.nav-link.logout:hover {
+    background: #c0392b;
+}
+
+/* --- 5. Двухколоночный макет контента --- */
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    display: flex;
+    gap: 30px;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.primary-section {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sidebar-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- 6. Контейнеры-карточки («Ручная работа») --- */
+.content-article {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border-left: 5px solid #1abc9c; /* Индивидуальный почерк */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.content-article:hover {
+    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+    background: #ffffff;
+}
+
+.content-article h2 {
+    color: #2c3e50;
+    margin-bottom: 6px;
+    font-size: 1.45rem;
+}
+
+.section-desc {
+    color: #64748b;
+    font-size: 0.92rem;
+    margin-bottom: 25px;
+}
+
+/* --- 7. Сетки элементов (Услуги, Сиделки, Питомцы) --- */
+.services-grid, .sitters-grid, .pets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.pets-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+/* Стилизация карточек */
+.service-card, .sitter-card, .pet-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.01);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-card:hover, .sitter-card:hover, .pet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+/* Контейнеры изображений */
+.image-container-wrapper {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card-image-content {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rounded-avatar {
+    border-radius: 50%;
+    border: 2px solid #1abc9c;
+}
+
+.avatar {
+    font-size: 2.8rem;
+}
+
+.service-card h3, .sitter-card h3, .pet-card h4 {
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 1.15rem;
+}
+
+.service-card p, .sitter-card p {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.badge {
+    background: #e8f8f5;
+    color: #1abc9c;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+/* --- 8. Админские кнопки и экшены --- */
+.pet-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+    z-index: 5;
+}
+
+.pet-delete, .edit-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    font-size: 0.8rem;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.pet-delete:hover {
+    background: #fee2e2 !important;
+    color: #ef4444;
+    transform: scale(1.08);
+}
+
+.edit-btn:hover {
+    background: #e0f2fe !important;
+    transform: scale(1.08);
+}
+
+.admin-add-btn {
+    background: #1abc9c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.88rem;
+    transition: background 0.2s;
+}
+
+.admin-add-btn:hover {
+    background: #16a085;
+}
+
+/* --- 9. Формы и интерактивные поля --- */
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: #334155;
+}
+
+.form-group input, .form-group select, .form-group textarea {
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #1abc9c !important;
+    box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.15);
+}
+
+/* Кнопки */
+.btn {
+    background: #1abc9c;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: #16a085;
+}
+
+.btn-small {
+    background: #2c3e50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.88rem;
+}
+
+.btn-small:hover {
+    background: #1a252f;
+}
+
+.pet-manager .add-pet-form {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+    margin-bottom: 15px;
+}
+
+.form-inline {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.form-inline input, .form-inline select {
+    flex: 1;
+    min-width: 140px;
+}
+
+/* --- 10. Сайдбары и боковые виджеты --- */
+.aside-card {
+    background: rgba(255, 255, 255, 0.96);
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.aside-card h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+}
+
+.status-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 0.88rem;
+}
+
+.status-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.status-dot.online {
+    background: #2ecc71;
+    box-shadow: 0 0 8px #2ecc71;
+}
+
+/* --- 11. Уникальные стили для страниц "О нас" и "Контакты" --- */
+.story-block p {
+    line-height: 1.6;
+    font-size: 0.95rem;
+    color: #334155;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.value-item {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
+}
+
+.value-icon {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.value-item h4 {
+    color: #2c3e50;
+    margin-bottom: 6px;
+    font-size: 1rem;
+}
+
+.value-item p {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.4;
+}
+
+.stats-handcrafted {
+    list-style: none;
+}
+
+.stats-handcrafted li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #e2e8f0;
+    font-size: 0.9rem;
+}
+
+.stats-handcrafted li strong {
+    color: #1abc9c;
+    font-size: 1.05rem;
+}
+
+.info-line {
+    padding: 12px;
+    background: #f0fdf4;
+    border-radius: 8px;
+    border-left: 4px solid #2ecc71;
+    font-size: 0.95rem;
+    color: #1e293b;
+}
+
+/* --- 12. Подвал клиники --- */
+.site-footer {
+    background: #2c3e50;
+    color: #94a3b8;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.88rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PawCare - О нас</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="header-container">
+        <div class="logo"><span>PawCare</span></div>
+        <div class="user-status" id="userStatusBadge">Загрузка...</div>
+    </div>
+</header>
+
+<nav class="site-nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="index.html#services-section" class="nav-link">Услуги</a>
+        <a href="index.html#sitters-section" class="nav-link">Сиделки</a>
+        <a href="index.html#pets-section" class="nav-link">Картотека</a>
+        <a href="index.html#booking-section" class="nav-link">Онлайн-запись</a>
+        <a href="about.html" class="nav-link active">О нас</a>
+        <a href="contacts.html" class="nav-link">Контакты</a>
+        <a href="auth.html" class="nav-link logout" onclick="localStorage.clear()">Выйти</a>
+    </div>
+</nav>
+
+<main class="main-content">
+    <section class="primary-section">
+        <article class="content-article humanized-card">
+            <h2>Наша история и философия</h2>
+            <p class="section-desc">Как небольшая инициатива переросла в современную экосистему заботы о питомцах.</p>
+
+            <div class="story-block">
+                <p>Мы открыли двери <strong>PawCare</strong> с одной простой мыслью: животные заслуживают такого же уважительного, бережного и высокотехнологичного отношения, как и люди. Мы отказались от концепции «холодных кафельных клиник» и создали пространство, где минимизирован стресс для каждого пушистого посетителя.</p>
+                <p style="margin-top: 15px;">Сегодня наша система — это не просто передовое оборудование, но и продуманная цифровая база данных, объединяющая надежный учет процедур в <em>PostgreSQL</em> и гибкие профили петситтеров в <em>MongoDB</em>. Мы верим, что порядок в данных помогает делать уход предсказуемым, качественным и прозрачным.</p>
+            </div>
+        </article>
+
+        <article class="content-article humanized-card">
+            <h2>✨ Наши главные ценности</h2>
+            <div class="values-grid">
+                <div class="value-item">
+                    <span class="value-icon">❤️</span>
+                    <h4>Абсолютная эмпатия</h4>
+                    <p>Мы не просто лечим — мы сопереживаем. Каждый доктор и сиделка проходят строгий отбор на психологическую совместимость с животными.</p>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">🔬</span>
+                    <h4>Доказательный подход</h4>
+                    <p>Никаких назначений «на всякий случай». Только международные протоколы лечения и проверенные безопасные методики.</p>
+                </div>
+                <div class="value-item">
+                    <span class="value-icon">📱</span>
+                    <h4>Прозрачность процессов</h4>
+                    <p>Вы всегда видите, кто ухаживает за вашим любимцем, его рейтинг, стаж работы и информацию прямо в нашей системе.</p>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <aside class="sidebar-section">
+        <div class="aside-card status-card">
+            <h4>PawCare в цифрах</h4>
+            <ul class="stats-handcrafted">
+                <li><span>Счастливых хвостов</span> <strong>1,200+</strong></li>
+                <li><span>Проверенных сиделок</span> <strong>15+</strong></li>
+                <li><span>Мониторинг систем</span> <strong>24/7</strong></li>
+            </ul>
+        </div>
+    </aside>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <p>&copy; 2026 PawCare Единая Система Учета.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const name = localStorage.getItem('userName') || 'Гость';
+        const role = localStorage.getItem('userRole') || 'user';
+        const statusBadge = document.getElementById('userStatusBadge');
+
+        if (statusBadge) {
+            if (role === 'admin') {
+                statusBadge.innerText = `Администратор: ${name}`;
+                statusBadge.style.background = '#e74c3c';
+                statusBadge.style.color = '#fff';
+            } else {
+                statusBadge.innerText = `Пользователь: ${name}`;
+                statusBadge.style.background = '#2ecc71';
+                statusBadge.style.color = '#fff';
+            }
+        }
+    });
+</script>
+</body>
+</html>
